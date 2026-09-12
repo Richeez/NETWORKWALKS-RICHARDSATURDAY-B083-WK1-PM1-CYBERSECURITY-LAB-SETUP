@@ -3,6 +3,7 @@
 # 🔐 Cybersecurity Lab Environment Setup
 
 **Building an isolated virtual lab for penetration testing and ethical hacking practice**
+
 </div>
 
 <p align="center">
@@ -17,7 +18,7 @@
   <img src="https://img.shields.io/badge/Kali%20Linux-404040?style=flat-square&labelColor=C00000&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/NetworkWalks-404040?style=flat-square&labelColor=C00000" />
   <img src="https://img.shields.io/badge/Ethical%20Hacking-E87500?style=flat-square&labelColor=000000&logo=kalilinux&logoColor=white" />
-  <img src="https://img.shields.io/badge/Waqas%20Karim%20CCIE-C00000?style=flat-square" />
+  <img src="https://img.shields.io/badge/Richard%20Saturday%20-C00000?style=flat-square" />
 </p>
 
 ---
@@ -31,7 +32,6 @@ The purpose of the lab is to create a controlled environment where cybersecurity
 The lab is configured on a private virtual network so that additional machines can be added later and used as targets for authorized security testing.
 
 ---
-
 
 ## 🎯 Objectives
 
@@ -63,14 +63,13 @@ It can be used for activities such as:
 - Exploitation practice
 - Security-tool experimentation
 
-⚠️ **Important:** This laboratory must only be used for systems that you own or have explicit permission to test. Do not use the lab or its tools to attack unauthorized systems.
+<!-- ⚠️ **Important:** This laboratory must only be used for systems that you own or have explicit permission to test. Do not use the lab or its tools to attack unauthorized systems. -->
 
 ---
 
 ## 🏗️ Lab Architecture
 
 ![](1-screenshot-title-image.png)
-
 
 Additional target machines can be added to the same virtual network in future projects.
 
@@ -79,11 +78,11 @@ Additional target machines can be added to the same virtual network in future pr
 ## ⚙️ Lab Configuration
 
 | 🧩 Component       | ⚙️ Configuration   |
-| ------------------ | ------------------  |
-| 🖥️ Host OS         | Windows 10         |
-| 🧠 Host RAM        | 8 GB               |
-| ⚡ Processor       | Intel Core i7      |
-| 🧰 Hypervisor      | VirtualBox 7.2  |
+| ------------------ | ------------------ |
+| 🖥️ Host OS         | Windows 11         |
+| 🧠 Host RAM        | 16 GB              |
+| ⚡ Processor       | Intel Core i5      |
+| 🧰 Hypervisor      | VirtualBox 7.2     |
 | 🐉 Security OS     | Kali Linux 2026.2  |
 | 🧠 Kali RAM        | 2048 MB            |
 | 🌐 Virtual Network | NAT Network        |
@@ -99,9 +98,9 @@ Additional target machines can be added to the same virtual network in future pr
 
 ## Step 1. Install 7-Zip
 
-7-Zip was installed to extract the Kali Linux virtual-machine package, which may be distributed as a `.7z` archive.
+I used winrar in the place of 7-zip since I have it already installed to extract the Kali Linux virtual-machine package.
 
-**Tool:** 7-Zip
+**Tool:** 7-Zip/ winrar
 
 ---
 
@@ -117,16 +116,15 @@ A dedicated NAT Network was created in VirtualBox.
 
 Configuration:
 Network Name: NatNetwork
-IPv4 Prefix:  10.0.0.0/24
-DHCP:         Enabled
-IPv6:         Disabled
+IPv4 Prefix: 10.0.0.0/24
+DHCP: Enabled
+IPv6: Disabled
 
-![](2-screenshot-network-settings-1.png)
+![](screenshot-network-settings-1.png)
 
 A **NAT Network** was selected because multiple virtual machines connected to the same NAT Network can communicate with one another while also having outbound network connectivity.
 
 This will allow future attacker and target VMs to communicate within the lab.
-
 
 ---
 
@@ -148,10 +146,9 @@ The VM was allocated:
 ```text
 RAM: 2048 MB
 ```
-![](3-screenshot-kali-linux.png)
+
+![](screenshot-kali-linux-desktop.png) ![](screenshot-kali-linux-shared-folder.png)
 A shared folder was also configured for transferring required files between the host operating system and the Kali VM.
-
-
 
 ---
 
@@ -159,7 +156,7 @@ A shared folder was also configured for transferring required files between the 
 
 The Kali Linux network configuration was checked and configured with a consistent IPv4 address.
 
-Example configuration:
+Configuration:
 
 ```text
 IP Address: 10.0.0.2
@@ -170,7 +167,7 @@ DNS: 8.8.8.8
 
 A consistent IP address makes it easier to document the lab and reference the Kali machine in future exercises.
 
-![](4-screenshot-kali-network-settings.png)
+![](screenshot-network-settings-modal.png)
 
 ---
 
@@ -178,22 +175,17 @@ A consistent IP address makes it easier to document the lab and reference the Ka
 
 After completing the initial configuration, a VirtualBox snapshot was created.
 
-Example snapshot name:
-
-```text
-Clean Kali - Network Setup
-```
+![](snapshot-screenshot.png)
 
 The snapshot represents the clean baseline of the laboratory.
 
 If a future exercise changes or damages the VM configuration, the machine can be restored to this baseline.
 
-
 ---
 
 # 🔎 Lab Verification
 
-| ✅ Test                        | 🧾 Command                      | 🎯 Expected Result              |
+| ✅ Test                       | 🧾 Command                      | 🎯 Expected Result              |
 | ----------------------------- | ------------------------------- | ------------------------------- |
 | 🌐 Check IP address           | `ip a`                          | Correct Kali IP displayed       |
 | 📡 Test gateway               | `ping 10.0.0.1`                 | Successful replies              |
@@ -202,7 +194,7 @@ If a future exercise changes or damages the VM configuration, the machine can be
 | 🧰 Verify Nmap                | `nmap --version`                | Nmap version displayed          |
 | 🔄 Verify snapshot            | Restore snapshot and run `ip a` | Baseline configuration restored |
 
-### Example Results
+<!-- ### Example Results
 
 ```text
 IP Address:
@@ -213,7 +205,7 @@ Gateway:
 
 DNS:
 8.8.8.8
-```
+``` -->
 
 ---
 
@@ -221,21 +213,31 @@ DNS:
 
 Documenting problems is an important part of the project.
 
-## Problem 1. Internet Connectivity After Static IP Configuration
+## Internet Connectivity After Static IP Configuration
 
-After manually configuring the IPv4 settings, Internet connectivity may fail depending on the Kali/NetworkManager configuration.
+After manually configuring the IPv4 settings, Internet connectivity failed.
 
-One workaround used during this lab was:
+One workaround used was during this lab was:
 
 ```bash
 sudo nmcli connection modify "Wired connection 1" ipv4.dad-timeout 0
 ```
 
+As I got came across this problem I noticed it was based on the version as I already came across same fix in the guide if it surfaces.
+
 The network connection was then restarted/rebooted and connectivity was tested again.
 
-> **Important:** Network interface and connection names may differ between systems. Students should first identify their actual connection name before running an `nmcli` command.
+```bash
+sudo nmcli connection down "Wired connection 1"
+```
 
----
+```bash
+sudo nmcli connection up "Wired connection 1"
+```
+
+<!-- > **Important:** Network interface and connection names may differ between systems. Students should first identify their actual connection name before running an `nmcli` command. -->
+
+<!-- ---
 
 ## Problem 2. VirtualBox VT-x / Virtualization Error
 
@@ -252,8 +254,7 @@ The issue was resolved by:
 
 After enabling virtualization, the VM started successfully.
 
-
----
+--- -->
 
 # 💡 What I Learned
 
@@ -305,10 +306,10 @@ This laboratory is intended strictly for education purposes only.
 
 # 👤 Author
 
-**Waqas Karim**\
+**Richard Saturday**\
 Cybersecurity Professional B082
 
-LinkedIn: [https://www.linkedin.com/in/waqaskarim/](https://www.linkedin.com/in/waqaskarim/)
+LinkedIn: [https://www.linkedin.com/in/richard-saturday-5935121b1/](https://www.linkedin.com/in/richard-saturday-5935121b1/)
 
 ---
 
