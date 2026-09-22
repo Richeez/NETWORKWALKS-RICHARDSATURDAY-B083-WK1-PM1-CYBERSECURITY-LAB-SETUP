@@ -307,7 +307,7 @@ This laboratory is intended strictly for education purposes only.
 # 👤 Author
 
 **Richard Saturday**\
-Cybersecurity Professional B082
+Cybersecurity Professional B083
 
 LinkedIn: [https://www.linkedin.com/in/richard-saturday-5935121b1/](https://www.linkedin.com/in/richard-saturday-5935121b1/)
 
